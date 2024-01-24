@@ -57,6 +57,7 @@ X_test = data_test.drop('target', axis=1)
 y_test = data_test['target']
 
 # Zamień przecinki na kropki w kolumnie "oldpeak"
+X_test['oldpeak'] = X_test['oldpeak'].astype(str)
 X_test['oldpeak'] = X_test['oldpeak'].str.replace(',', '.')
 
 # Skonwertuj kolumnę "oldpeak" na liczby zmiennoprzecinkowe

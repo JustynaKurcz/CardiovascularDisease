@@ -6,14 +6,15 @@ from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler
 
 # Wczytaj dane z pliku CSV z użyciem średnika jako separatora
-data_train = pd.read_csv('Cardiovascular_Disease_Dataset.csv', sep=';')
+data_train = pd.read_csv('Cardiovascular_Disease_Dataset_mod.csv', sep=';')
 data_test = pd.read_csv('Testowe.csv', sep=';')
 
+
 # Usuń kolumny z samymi brakującymi danymi w danych treningowych
-data_train = data_train.dropna(axis=1, how='all')
+data_train = data_train.dropna(axis=1)
 
 # Usuń kolumny z samymi brakującymi danymi w danych testowych
-data_test = data_test.dropna(axis=1, how='all')
+data_test = data_test.dropna(axis=1)
 
 # Informacje o wartościach w poszczególnych kolumnach
 value_info = {
@@ -89,7 +90,7 @@ param_dist = {
     'subsample': [0.8, 0.9, 1.0],
     'colsample_bytree': [0.8, 0.9, 1.0],
     'gamma': [0, 1, 5],
-    'min_child_weight': [1, 3, 5, 7, 9, 11]
+    'min_child_weight': [0.5, 1, 3, 5, 7, 9, 11]
 }
 
 # Utwórz obiekt RandomizedSearchCV

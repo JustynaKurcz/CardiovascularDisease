@@ -1,5 +1,4 @@
 patientid;age;gender;chestpain;restingBP;serumcholestrol;fastingbloodsugar;restingrelectro;maxheartrate;exerciseangia;oldpeak;noofmajorvessels;target
-9002324;39;1;1;178;0;0;2;139;0;0.4;2;2;1
 9018353;55;1;2;165;365;0;1;169;1;3.6;2;1;1
 9020025;27;1;1;168;253;0;2;176;0;6.2;2;1;1
 9024169;74;0;0;141;436;0;1;145;1;0.4;1;2;0

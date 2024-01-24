@@ -6,7 +6,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler
 
 # Wczytaj dane z pliku CSV z użyciem średnika jako separatora
-data_train = pd.read_csv('Cardiovascular_Disease_Dataset_mod.csv', sep=';')
+data_train = pd.read_csv('Cardiovascular_Disease_Dataset.csv', sep=';')
 data_test = pd.read_csv('Testowe.csv', sep=';')
 
 # Usuń kolumny z samymi brakującymi danymi w danych treningowych
@@ -37,6 +37,7 @@ y_train = data_train['target']
 # Zastosuj SimpleImputer do uzupełnienia brakujących danych
 imputer = SimpleImputer(strategy='mean')
 
+X_train['oldpeak'] = X_train['oldpeak'].astype(str)
 # Zamień przecinki na kropki w kolumnie "oldpeak"
 X_train['oldpeak'] = X_train['oldpeak'].str.replace(',', '.')
 
@@ -104,6 +105,12 @@ print("Skuteczność na danych treningowych:", random_search.best_score_)
 
 # Ocen skuteczność modelu na danych testowych
 best_model = random_search.best_estimator_
+# Drop NaN values from y_test and corresponding rows in X_test
+nan_indices = y_test.index[y_test.isnull()]
+y_test = y_test.drop(nan_indices)
+X_test = X_test.drop(nan_indices)
+
+# Ocen skuteczność modelu na danych testowych
 y_pred = best_model.predict(X_test_imputed)
 accuracy = accuracy_score(y_test, y_pred)
 print(f'Skuteczność modelu na danych testowych: {accuracy * 100:.2f}%')

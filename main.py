@@ -6,6 +6,9 @@ from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler
 
 
+data_train_path = 'Cardiovascular_Disease_Dataset_mod.csv'
+data_test_path = 'Testowe.csv'
+
 # Funkcja do zamiany przecinków na kropki w pliku CSV
 def replace_commas_with_dots(file_path):
     with open(file_path, 'r') as file:
@@ -17,16 +20,18 @@ def replace_commas_with_dots(file_path):
 
 
 # Zamień przecinki na kropki w pliku "Testowe.csv"
-replace_commas_with_dots('Testowe.csv')
+replace_commas_with_dots(data_test_path)
 
 # Wczytaj dane z pliku CSV z użyciem średnika jako separatora
-data_train = pd.read_csv('Cardiovascular_Disease_Dataset.csv', sep=';')
-data_test = pd.read_csv('Testowe.csv', sep=';')
+data_train = pd.read_csv(data_train_path, sep=';')
+data_test = pd.read_csv(data_test_path, sep=';')
 
 # Usuń kolumny z samymi brakującymi danymi w danych treningowych
 data_train = data_train.dropna(axis=1, how='all')
 data_test = data_test.dropna(axis=1, how='all')
 
+print(data_train.head(5))
+print(data_test.head(5))
 # Informacje o wartościach w poszczególnych kolumnach
 value_info = {
     'gender': {'male': 1, 'female': 0},

@@ -7,7 +7,7 @@ from sklearn.preprocessing import StandardScaler
 
 
 data_train_path = 'Cardiovascular_Disease_Dataset_mod.csv'
-data_test_path = 'Testowe.csv'
+data_test_path = ''
 
 # Funkcja do zamiany przecinków na kropki w pliku CSV
 def replace_commas_with_dots(file_path):

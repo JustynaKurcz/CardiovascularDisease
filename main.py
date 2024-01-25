@@ -5,10 +5,23 @@ from sklearn.impute import SimpleImputer
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler
 
+
+# Funkcja do zamiany przecinków na kropki w pliku CSV
+def replace_commas_with_dots(file_path):
+    with open(file_path, 'r') as file:
+        content = file.read()
+        content = content.replace(',', '.')
+
+    with open(file_path, 'w') as file:
+        file.write(content)
+
+
+# Zamień przecinki na kropki w pliku "Testowe.csv"
+replace_commas_with_dots('Testowe.csv')
+
 # Wczytaj dane z pliku CSV z użyciem średnika jako separatora
 data_train = pd.read_csv('Cardiovascular_Disease_Dataset.csv', sep=';')
 data_test = pd.read_csv('Testowe.csv', sep=';')
-
 
 # Usuń kolumny z samymi brakującymi danymi w danych treningowych
 data_train = data_train.dropna(axis=1, how='all')
@@ -55,7 +68,6 @@ X_train['age_and_maxheartrate'] = X_train['age'] * X_train['maxheartrate']
 # Wydziel cechy (X) i etykiety (y) z danych testowych
 X_test = data_test.drop('target', axis=1)
 y_test = data_test['target']
-
 
 X_test['oldpeak'] = X_test['oldpeak'].astype(str)
 # Zamień przecinki na kropki w kolumnie "oldpeak"

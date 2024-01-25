@@ -6,15 +6,13 @@ from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler
 
 # Wczytaj dane z pliku CSV z użyciem średnika jako separatora
-data_train = pd.read_csv('Cardiovascular_Disease_Dataset_mod.csv', sep=';')
+data_train = pd.read_csv('Cardiovascular_Disease_Dataset.csv', sep=';')
 data_test = pd.read_csv('Testowe.csv', sep=';')
 
 
 # Usuń kolumny z samymi brakującymi danymi w danych treningowych
-data_train = data_train.dropna(axis=1)
-
-# Usuń kolumny z samymi brakującymi danymi w danych testowych
-data_test = data_test.dropna(axis=1)
+data_train = data_train.dropna(axis=1, how='all')
+data_test = data_test.dropna(axis=1, how='all')
 
 # Informacje o wartościach w poszczególnych kolumnach
 value_info = {
@@ -58,15 +56,16 @@ X_train['age_and_maxheartrate'] = X_train['age'] * X_train['maxheartrate']
 X_test = data_test.drop('target', axis=1)
 y_test = data_test['target']
 
-# Zamień przecinki na kropki w kolumnie "oldpeak"
+
 X_test['oldpeak'] = X_test['oldpeak'].astype(str)
+# Zamień przecinki na kropki w kolumnie "oldpeak"
 X_test['oldpeak'] = X_test['oldpeak'].str.replace(',', '.')
 
 # Skonwertuj kolumnę "oldpeak" na liczby zmiennoprzecinkowe
 X_test['oldpeak'] = X_test['oldpeak'].astype(float)
 
 # Zastosuj imputer
-X_test_imputed = imputer.transform(X_test)
+X_test_imputed = imputer.fit_transform(X_test)
 
 # Zamień wartości w kolumnie "gender" na 1 dla mężczyzn i 0 dla kobiet
 X_test['gender'] = X_test['gender'].map(value_info['gender'])
